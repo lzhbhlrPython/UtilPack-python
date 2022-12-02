@@ -73,34 +73,3 @@ class Database:
         db.load()
         return db
     
-def test():
-    import faker
-    fake = faker.Faker("ko_KR")
-    if 'test.json' in os.listdir():
-        db=Database.load_database('test')
-    else:
-        db = Database('test')
-    for i in range(10):
-        fuser = {
-            'name': fake.name(),
-            'address': fake.address(),
-            'email': fake.email(),
-            'phone': fake.phone_number(),
-            'company': fake.company(),
-            'job': fake.job(),
-            'text': fake.text()
-        }
-        db.add(fake.uuid4(), fuser)
-    db.save()
-    db2 = Database.load_database('test')
-    print(db2)
-    print(db2.meta['name'])
-    print(db2.meta['uuid'])
-    print(db2.meta['created'])
-    print(db2.meta['last_modified'])
-    print(db2.meta['by'])
-    print(db2.data)
-
-if __name__ == '__main__':
-    test()
-    

@@ -4,7 +4,8 @@ import time
 
 def push_to_git():
     repo = git.Repo(os.getcwd())
-    repo.git.add(update=True)
+    # commit all files, including new files
+    repo.git.add(A=True)
     repo.index.commit('Update at ' + time.strftime('%Y-%m-%d %H:%M:%S', time.localtime())+'.')
     origin = repo.remote(name='origin')
     origin.push()

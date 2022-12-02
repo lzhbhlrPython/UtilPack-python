@@ -66,6 +66,12 @@ class Database:
         self.delete(key)
     def __contains__(self, key):
         return key in self.data
+    def __repr__(self):
+        return str(self.all)
+    def get_all(self):
+        return self.data
+    def get_meta(self):
+        return self.meta
     
     @staticmethod
     def load_database(name):

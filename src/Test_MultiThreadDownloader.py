@@ -1,9 +1,9 @@
 from MultiThreadDownloader import Downloader
 
 def test_Downloader():
-    url = "https://www.python.org/ftp/python/3.7.4/python-3.7.4-amd64.exe"
-    filename = "python-3.7.4-amd64.exe"
-    downloader = Downloader(url, filename)
+    url = "https://pub-2fdef7a2969f43289c42ac5ae3412fd4.r2.dev/animefull-latest.tar"
+    filename = "animefull-latest.tar"
+    downloader = Downloader(url, filename,50)
     downloader.start()
     downloader.wait()
 

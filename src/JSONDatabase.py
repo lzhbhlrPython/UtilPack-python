@@ -13,7 +13,7 @@ class Database:
         self.meta = self.all['meta']
         self.data = self.all['data']
         self.meta['name'] = name
-        self.meta['uuid'] = str(uuid.uuid3(uuid.NAMESPACE_DNS, name))
+        self.meta['uuid'] = str(uuid.uuid1())
         self.meta['created'] = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime())
         self.meta['last_modified'] = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime())
         self.meta['name'] = name
@@ -72,4 +72,3 @@ class Database:
         db = Database(name)
         db.load()
         return db
-    

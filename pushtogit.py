@@ -1,30 +1,13 @@
 import os
+import git
+import time
 
-def addAllToGit():
-    os.system('git add .')
-
-def commitToGit(message):
-    os.system('git commit -m "'+message+'"')
-
-def pushToGit():
-    os.system('git push')
-
-def pullFromGit():
-    os.system('git pull')
-
-def pushToGitWithMessage(message):
-    addAllToGit()
-    commitToGit(message)
-    pushToGit()
-
-def pullFromGitWithMessage(message):
-    pullFromGit()
-    addAllToGit()
-    commitToGit(message)
-    pushToGit()
-
-def main():
-    pushToGitWithMessage('Pushed from pushtogit.py')
+def push_to_git():
+    repo = git.Repo(os.getcwd())
+    repo.git.add(update=True)
+    repo.index.commit('Update at ' + time.strftime('%Y-%m-%d %H:%M:%S', time.localtime())+'. By'+__file__)
+    origin = repo.remote(name='origin')
+    origin.push()
 
 if __name__ == '__main__':
-    main()
+    push_to_git()

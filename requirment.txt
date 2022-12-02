@@ -1,0 +1,4 @@
+requests
+tqdm
+fake-useragent
+faker

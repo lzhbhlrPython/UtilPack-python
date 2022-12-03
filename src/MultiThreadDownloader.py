@@ -8,9 +8,12 @@ import os
 import fake_useragent
 import tqdm
 
+
 class Downloader:
-    def __init__(self, url, filename, thread_count=10, ua=None):
+    def __init__(self, url, filename=None, thread_count=10, ua=None):
         self.url = url
+        if filename is None:
+            self.filename = url.split('/')[-1]
         self.filename = filename
         self.thread_count = thread_count
         if ua is None:
@@ -22,8 +25,10 @@ class Downloader:
         self.start_time = time.time()
         self.end_time = None
         self.finished = False
-        self.progress_bar = tqdm.tqdm(total=self.file_size, unit='B', unit_scale=True, desc=self.filename)
+        self.progress_bar = tqdm.tqdm(
+            total=self.file_size, unit='B', unit_scale=True, desc=self.filename)
         self.progress_bar.update(0)
+
     def download(self, start, end, filename):
         headers = self.headers
         headers['Range'] = 'bytes=%d-%d' % (start, end)
@@ -38,6 +43,7 @@ class Downloader:
             self.finished = True
             self.end_time = time.time()
             self.progress_bar.close()
+
     def start(self):
         for i in range(self.thread_count):
             start = self.block_size * i
@@ -48,10 +54,12 @@ class Downloader:
             t = threading.Thread(target=self.download, args=(start, end, self.filename + '.part%d' % i))
             t.start()
             self.threads.append(t)
+
     def wait(self):
         while not self.finished:
             time.sleep(1)
         return self.merge()
+
     def merge(self):
         with open(self.filename, 'wb') as f:
             for i in range(self.thread_count):
@@ -59,4 +67,3 @@ class Downloader:
                     f.write(f2.read())
                 os.remove(self.filename + '.part%d' % i)
         return self.end_time - self.start_time
-    

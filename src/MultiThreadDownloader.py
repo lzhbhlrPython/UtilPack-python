@@ -25,8 +25,7 @@ class Downloader:
         self.start_time = time.time()
         self.end_time = None
         self.finished = False
-        self.progress_bar = tqdm.tqdm(
-            total=self.file_size, unit='B', unit_scale=True, desc=self.filename)
+        self.progress_bar = tqdm.tqdm(total=self.file_size, unit='B', unit_scale=True, desc=self.filename)
         self.progress_bar.update(0)
 
     def download(self, start, end, filename):

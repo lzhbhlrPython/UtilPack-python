@@ -9,11 +9,13 @@ import fake_useragent
 import tqdm
 
 class Downloader:
-    def __init__(self, url, filename, thread_count=10):
+    def __init__(self, url, filename, thread_count=10, ua=None):
         self.url = url
         self.filename = filename
         self.thread_count = thread_count
-        self.headers = {'User-Agent': fake_useragent.UserAgent().random}
+        if ua is None:
+            ua = fake_useragent.UserAgent().random
+        self.headers = {'User-Agent': ua}
         self.file_size = int(requests.head(self.url, headers=self.headers).headers['Content-Length'])
         self.block_size = self.file_size // self.thread_count
         self.threads = []

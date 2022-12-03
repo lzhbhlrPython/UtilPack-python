@@ -13,7 +13,7 @@ class Downloader:
     def __init__(self, url, filename=None, thread_count=10, ua=None):
         self.url = url
         if filename is None:
-            self.filename = url.split('/')[-1]
+            filename = url.split('/')[-1]
         self.filename = filename
         self.thread_count = thread_count
         if ua is None:

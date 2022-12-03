@@ -6,7 +6,8 @@ def test_Downloader():
     thread_count=int(input("Enter the number of threads to use:"))
     downloader=Downloader(url,filename,thread_count)
     downloader.start()
-    downloader.wait()
+    finish_time=downloader.wait()
+    print("Download finished in %.2f seconds."%finish_time)
 
 if __name__ == "__main__":  
     test_Downloader()

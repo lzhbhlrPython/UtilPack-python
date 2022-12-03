@@ -49,12 +49,12 @@ class Downloader:
     def wait(self):
         while not self.finished:
             time.sleep(1)
-        self.merge()
+        return self.merge()
     def merge(self):
         with open(self.filename, 'wb') as f:
             for i in range(self.thread_count):
                 with open(self.filename + '.part%d' % i, 'rb') as f2:
                     f.write(f2.read())
                 os.remove(self.filename + '.part%d' % i)
-        print('Download finished in %.2f seconds' % (self.end_time - self.start_time))
+        return self.end_time - self.start_time
     
